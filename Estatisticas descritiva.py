@@ -82,12 +82,15 @@ print("")
 # Assimétrica negativa: se média < mediana < moda ou As < 0
 # Assimétrica positiva: se moda < mediana < média ou As > 0
 
-Base_dados["sepal_length"].skew()
-sns.kdeplot(Base_dados["sepal_length"])
-plt.show()
+# Base_dados["sepal_length"].skew()
+# sns.kdeplot(Base_dados["sepal_length"])
+# plt.show()
 
 # Medidas de curtose: grau de achatamento da distribuição
 
-# Leptocúrtica:
-# Mesocúrtica:
-# Platicúrtica:
+# Leptocúrtica: curva de frequência fechada, com os dados concentrados em torno do seu centro, K < 0,263
+# Mesocúrtica: dados concentrados razoavelmente em torno de seu centro, K=0,263
+# Platicúrtica: curva de frequência aberta, dados fracamente concentrados em torno do centro, K > 0,263
+
+curtosis = Base_dados["sepal_length"].kurtosis()
+print(f"Curtose: {curtosis}")
