@@ -31,11 +31,11 @@ Base_Dados["Valor ($)"] = pd.to_numeric(
     Base_Dados["Valor ($)"].apply(lambda Linha: Linha.replace("$", ""))
 )
 
-Analise = round(Base_Dados["Pais"].value_counts(normalize=True) * 100, 1)
+# Analise = round(Base_Dados["Pais"].value_counts(normalize=True) * 100, 1)
 
-print()
-print(Base_Dados.head())
-print()
+# print()
+# print(Base_Dados.head())
+# print()
 
 # Valores Unicos do setor
 # print()
@@ -55,13 +55,29 @@ Analise_Agrupada = (
     .sort_values(by="Valor ($)", ascending=False)
 )
 
-print()
-print(Analise_Agrupada)
-print()
+# print()
+# print(Analise_Agrupada)
+# print()
 
 print()
 print(Analise_Agrupada.loc[Analise_Agrupada["Pais"] == "Brazil"])
 print()
+
+Analise_Brasil = Analise_Agrupada.loc[Analise_Agrupada["Pais"] == "Brazil"]
+plt.figure(figsize=(15, 6))
+plt.title("Top 10 unicórnios do Brasil")
+plt.xlabel("Empresa")
+plt.ylabel("Valor em bilhões")
+plt.bar(Analise_Brasil["Empresa"], Analise_Brasil["Valor ($)"])
+plt.xticks(rotation=45, ha="right")
+plt.show()
+
+
+# plt.figure(figsize=(15, 6))
+# plt.title("Top 10 Brasil")
+# plt.bar()
+# plt.xticks(rotation=45, ha="right")
+# plt.show()
 
 # plt.figure(figsize=(15, 6))
 # plt.title("Analise dos Setores")
@@ -87,3 +103,20 @@ print()
 #     autopct="%1.1f%%",
 # )
 # plt.show()
+
+Analise_Pais = (
+    Base_Dados.groupby(by=["Pais"])
+    .sum(numeric_only=True)["Valor ($)"]
+    .reset_index()
+    .sort_values(by="Valor ($)", ascending=False)
+)
+
+print()
+print(Analise_Pais.head())
+print()
+
+plt.figure(figsize=(15, 6))
+plt.plot(Analise_Pais["Pais"], Analise_Pais["Valor ($)"])
+plt.title("Analise do Valor por Pais")
+plt.xticks(rotation=45, ha="right")
+plt.show()
